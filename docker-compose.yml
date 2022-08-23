@@ -1,0 +1,35 @@
+version: '3.0'
+
+services:
+  # PHP
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${APP_NAME}-php
+    restart: "always"
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 8000:8000
+    command: sh -c "/usr/local/bin/php /var/www/html/artisan serve --host=0.0.0.0"
+    depends_on:
+      - mysql
+
+  # MySQL
+  mysql:
+    image: mysql:5.7
+    container_name: ${APP_NAME}-mysql
+    restart: always
+    ports:
+      - 3306:${DB_PORT}
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mysqldata:/var/lib/mysql
+
+# Volumes
+volumes:
+  mysqldata:
+    driver: local
