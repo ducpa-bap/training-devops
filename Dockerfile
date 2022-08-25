@@ -7,6 +7,9 @@ RUN apt-get update
 # Git
 RUN apt-get install -y git
 
+# Netcat
+RUN apt-get install -y netcat
+
 # Zip
 RUN apt-get install -y libzip-dev zip && docker-php-ext-configure zip && docker-php-ext-install zip
 
