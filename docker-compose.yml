@@ -22,6 +22,21 @@ services:
     volumes:
       - mysqldata:/var/lib/mysql
 
+  # Phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+
+  # Mailhog
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+
 # Volumes
 volumes:
   mysqldata:
